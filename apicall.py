@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+
+
 import yfinance as yf
 import json
 

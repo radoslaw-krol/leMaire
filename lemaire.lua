@@ -1,8 +1,12 @@
 #!/usr/bin/env lua
 
+--dependancies
 
 local cjson = require("cjson")
+local menu = require("menu")
 
+local function executeProgram()
+  
 -- Read the JSON data from file
 local file = io.open("result.json", "r")
 local json_data = file:read("*a")
@@ -24,3 +28,26 @@ else
     print("Bid field not found in JSON data")
 end
 
+end
+
+--Run menu loop
+
+
+local choice = 0
+
+while choice ~= 3 do
+ menu.showMenu()
+
+choice = io.read("*n")
+
+if choice == 1 then
+
+  os.execute("python3 apicall.py")
+elseif choice == 2 then
+  print("Executing Program...")
+  executeProgram()
+  
+elseif choice == 3 then
+  print("Quiting Program...")
+end
+end
