@@ -4,6 +4,8 @@
 
 local cjson = require("cjson")
 local menu = require("menu")
+local art = require("art")
+
 
 local function executeProgram()
   
@@ -29,6 +31,10 @@ else
 end
 
 end
+
+-- Display dashboard art
+
+showArt()
 
 --Run menu loop
 
