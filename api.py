@@ -5,11 +5,14 @@ import yfinance as yf
 import json
 from datetime import date
 
+# Read the ticker symbol from ticker_symbol.txt
+
+with open('ticker_symbol.txt','r+') as file:
+    ticker_symbol = file.read().strip()
+
 # Get the current date
 current_date = date.today().strftime("%Y-%m-%d")
 
-# Define the ticker symbol variable
-ticker_symbol = "CL=F"
 
 # Check if the file exists
 if os.path.exists('result.json'):

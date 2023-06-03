@@ -45,16 +45,35 @@ local function executeProgram()
     end
 end
 
+
+-- Function to update ticker_symbol
+
+local function updateTickerSymbol()
+  print("Eneter new ticker symbol")
+  io.flush()
+  io.stdin:read()
+  local ticker_symbol = io.stdin:read("*l")
+  print("Ticker symbol updated")
+
+-- Write ticker symbol to file
+  local file = io.open("ticker_symbol.txt", "w")
+  file:write(ticker_symbol)
+  file:close()
+end
+
+
+-- Display dashboard art
 showArt()
+
 
 --Run menu loop
 
 
-local choice = 0
+local choice = ""
 
-while choice ~= 3 do
+while choice ~= 4 do
  menu.showMenu()
-
+io.flush()
 choice = io.read("*n")
 
 if choice == 1 then
@@ -63,8 +82,12 @@ if choice == 1 then
 elseif choice == 2 then
   print("Executing Program...")
   executeProgram()
-  
 elseif choice == 3 then
+  print("Updating ticker symbol...")
+  updateTickerSymbol()
+elseif choice == 4 then
   print("Quiting Program...")
+else
+  print("Invalid choice")
 end
 end
