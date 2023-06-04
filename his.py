@@ -11,23 +11,11 @@ current_date = date.today().strftime("%Y-%m-%d")
 
 
 historical_data = yf.download(ticker_symbol, start=date.today() - timedelta(days=30) , end=date.today())
+historical_data_json = historical_data.to_json(orient="columns")
+file_path = "history.json"
 
-# Check if the file exists
-if os.path.exists('historical.json'):
-    with open('historical.json', 'r') as json_file:
-        file_content = json_file.read()
+with open(file_path, "w") as json_file:
+    json_file.write(historical_data_json)
 
-        # Check if the file content is empty or not valid JSON
-        if not file_content or not file_content.strip():
-            data = {}
-        else:
-            try:
-                data = json.loads(file_content)
-            except json.JSONDecodeError:
-                data = {}
-else:
-    data = {}
-    with open('historical.json', 'w') as json_file:
-        json.dump(data,json_file, indent=4)
-
+print(f"Data saved in: {os.path.abspath(file_path)}")
 
