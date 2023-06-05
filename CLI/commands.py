@@ -4,6 +4,7 @@ import yfinance as yf
 import plotext as plt
 from datetime import date, timedelta
 from datetime import datetime
+from dateutil import parser
 
 # Define base directory to support files like history.json being saved in the same directory, regardless of where from the system file was executed
 base_dir = os.path.dirname(os.path.abspath(__file__))
@@ -41,7 +42,7 @@ def chart_command(args):
 
     values = [entry[args.value] for entry in data.values()]
     
-    formatted_timestamps = [datetime.strptime(timestamp, '%Y-%m-%d %H:%M:%S').strftime('%d/%m/%Y') for timestamp in timestamps]
+    formatted_timestamps = [parser.parse(timestamp).strftime('%d/%m/%Y') for timestamp in timestamps]
 
     plt.plot_size(90,20)
 
