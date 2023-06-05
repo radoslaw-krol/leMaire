@@ -45,7 +45,6 @@ def chart_command(args):
     formatted_timestamps = [parser.parse(timestamp).strftime('%d/%m/%Y') for timestamp in timestamps]
 
     plt.plot_size(90,20)
-
     plt.plot(formatted_timestamps, values, fillx=True)
 
     plt.show()
