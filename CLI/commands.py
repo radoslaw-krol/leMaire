@@ -98,7 +98,7 @@ def history30_command(args):
             for key, value in historical_data_dict.items()
             }
 
-    file_path = "history.json"
+    file_path = os.path.join(base_dir, "history.json")
 
    
     with open(file_path, "w") as json_file:
@@ -120,7 +120,7 @@ def history6M_command(args):
             for key, value in historical_data_dict.items()
             }
 
-    file_path = "history6M.json"
+    file_path = os.path.join(base_dir, "history6M.json")
    
     with open(file_path, "w") as json_file:
         json.dump(historical_data_dict, json_file)
@@ -141,7 +141,7 @@ def history1Y_command(args):
             for key, value in historical_data_dict.items()
             }
 
-    file_path = "history1Y.json"
+    file_path = os.path.join(base_dir, "history1Y.json")
    
     with open(file_path, "w") as json_file:
         json.dump(historical_data_dict, json_file)
@@ -166,7 +166,7 @@ def period1M_command(args):
 
     }
 
-    file_path = "periodical.json"
+    file_path = os.path.join(base_dir, "periodical.json")
 
     with open(file_path, "w") as json_file:
         json.dump(periodical_data_dict, json_file)
