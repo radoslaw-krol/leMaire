@@ -56,7 +56,6 @@ def opening_command(args):
     ticker =  get_ticker_by_product(product)
     apiPull = yf.Ticker(ticker)
     result = apiPull.info
-
     # Remove unnecessary fields from the result
     fields_to_keep = ['previousClose', 'open', 'dayLow', 'dayHigh', 'volume', 'bid', 'ask']
     filtered_result = {key: result[key] for key in fields_to_keep if key in result}
