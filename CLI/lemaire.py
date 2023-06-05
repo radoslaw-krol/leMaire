@@ -26,20 +26,24 @@ chart_subparsers = chart_parser.add_subparsers(dest='choice', required=True)
 
 # Create the parser for the "history30" command
 history30_parser = chart_subparsers.add_parser('history30', help='history30 command help')
+history30_parser.add_argument('value', choices=['Open', 'Volume', 'High', 'Low', 'Close'], help='value to display')
 history30_parser.set_defaults(func=chart_command)
 
 
 # Create the parser for the "history6M" command
 history6M_parser = chart_subparsers.add_parser('history6M', help='history6M command help')
+history6M_parser.add_argument('value', choices=['Open', 'Volume', 'High', 'Low', 'Close'], help='value to display')
 history6M_parser.set_defaults(func=chart_command)
 
 
 # Create the parser for the "history1Y" command
 history1Y_parser = chart_subparsers.add_parser('history1Y', help='history1Y command help')
+history1Y_parser.add_argument('value', choices=['Open', 'Volume', 'High', 'Low', 'Close'], help='value to display')
 history1Y_parser.set_defaults(func=chart_command)
 
 # Create the parser for the "chart period1M" command
 period1M_parser = chart_subparsers.add_parser('period1M', help = 'period1M command help')
+period1M_parser.add_argument('value', choices=['Open', 'Volume', 'High', 'Low', 'Close'], help='value to display')
 period1M_parser.set_defaults(func=chart_command)
 
 

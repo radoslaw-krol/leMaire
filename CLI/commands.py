@@ -1,10 +1,9 @@
 import os
 import json
-import pandas as pd
 import yfinance as yf
 import plotext as plt
 from datetime import date, timedelta
-
+from datetime import datetime
 
 # Define base directory to support files like history.json being saved in the same directory, regardless of where from the system file was executed
 base_dir = os.path.dirname(os.path.abspath(__file__))
@@ -31,13 +30,22 @@ def chart_command(args):
         json_data = file.read()
 
     data =  json.loads(json_data)
+   
+    timestamps = list(data.keys())
 
-    open_values = list(data["Open"].values())
 
+    
+    if args.value not in data[timestamps[0]]:
+        print("Invalid value choice")
+        return
+
+    values = [entry[args.value] for entry in data.values()]
+    
+    formatted_timestamps = [datetime.strptime(timestamp, '%Y-%m-%d %H:%M:%S').strftime('%d/%m/%Y') for timestamp in timestamps]
 
     plt.plot_size(90,20)
 
-    plt.plot(open_values)
+    plt.plot(formatted_timestamps, values, fillx=True)
 
     plt.show()
 
@@ -82,12 +90,19 @@ def history30_command(args):
     ticker = get_ticker_by_product(product)
     
     historical_data = yf.download(ticker, start=date.today() - timedelta(days=30) , end=date.today())
-    historical_data_json = historical_data.to_json(orient="columns")
+
+    historical_data_dict = historical_data.to_dict(orient="index")
+
+    historical_data_dict = {
+            str(key): value
+            for key, value in historical_data_dict.items()
+            }
+
     file_path = "history.json"
 
    
     with open(file_path, "w") as json_file:
-        json_file.write(historical_data_json)
+        json.dump(historical_data_dict, json_file)
 
     print(f"Data saved in: {os.path.abspath(file_path)}")
 
@@ -97,11 +112,18 @@ def history6M_command(args):
     ticker = get_ticker_by_product(product)
     
     historical_data = yf.download(ticker, start=date.today() - timedelta(days = 182) , end=date.today())
-    historical_data_json = historical_data.to_json(orient="columns")
+
+    historical_data_dict = historical_data.to_dict(orient="index")
+
+    historical_data_dict = {
+            str(key): value
+            for key, value in historical_data_dict.items()
+            }
+
     file_path = "history6M.json"
    
     with open(file_path, "w") as json_file:
-        json_file.write(historical_data_json)
+        json.dump(historical_data_dict, json_file)
 
     print(f"Data saved in: {os.path.abspath(file_path)}")
 
