@@ -85,6 +85,7 @@ def history30_command(args):
     historical_data_json = historical_data.to_json(orient="columns")
     file_path = "history.json"
 
+    print(historical_data_json)
    
     with open(file_path, "w") as json_file:
         json_file.write(historical_data_json)
@@ -111,18 +112,11 @@ def history1Y_command(args):
     ticker = get_ticker_by_product(product)
     
     historical_data = yf.download(ticker, start=date.today() - timedelta(days = 365) , end=date.today())
-
-    historical_data_dict = historical_data.to_dict(orient="index")
-
-    historical_data_dict = {
-            str(key): value
-            for key, value in historical_data_dict.items()
-            }
-
+    historical_data_json = historical_data.to_json(orient="columns")
     file_path = "history1Y.json"
    
     with open(file_path, "w") as json_file:
-        json.dump(historical_data_dict, json_file)
+        json_file.write(historical_data_json)
 
     print(f"Data saved in: {os.path.abspath(file_path)}")
 
