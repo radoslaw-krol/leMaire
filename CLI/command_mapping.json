@@ -1,5 +1,13 @@
 {
-  "crude": "CL=F",
-  "gold": "GC=F"
+  "crude_oil": "CL=F",
+  "heating_oil": "HO=F",
+  "coal": "MTF=F",
+  "gold": "GC=F",
+  "silver": "SI=F",
+  "platinum": "PL=F",
+  "natural_gas": "NG=F",
+  "sugar": "SB=F",
+  "cocoa": "CC=F",
+  "coffee": "KC=F"
 }
 
