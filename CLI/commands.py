@@ -1,19 +1,16 @@
 import os
 import json
-from numpy import block
 import yfinance as yf
 import plotext as plt
 import pandas as pd
-from datetime import date, timedelta, datetime
+from datetime import date, timedelta
 from dateutil import parser
 
 
 
 #matplot
 
-import matplotlib
 import mplfinance as mpf
-import inline
 
 # Define base directory to support files like history.json being saved in the same directory, regardless of where from the system file was executed
 base_dir = os.path.dirname(os.path.abspath(__file__))
@@ -60,7 +57,8 @@ def chart_command(args):
 
 def stockcandle_command():
 
-    file = 'AAPL.csv'
+    file = os.path.join(base_dir, "AAPL.csv")
+
 
     data = pd.read_csv(file)
     
@@ -70,7 +68,7 @@ def stockcandle_command():
    
 
 
-    mpf.plot(data,type='candle',mav=(20),volume=True,tight_layout=True, figratio=(20,12), style='yahoo')
+    mpf.plot(data,type='candle',mav=(20),volume=True,tight_layout=True,figratio=(20,12))
 
 def opening_command(args):
     product = args.product
