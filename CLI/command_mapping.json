@@ -8,6 +8,11 @@
   "natural_gas": "NG=F",
   "sugar": "SB=F",
   "cocoa": "CC=F",
-  "coffee": "KC=F"
+  "coffee": "KC=F",
+  "google": "GOOG",
+  "microsoft": "MSFT",
+  "amazon": "AMZN",
+  "apple": "AAPL",
+  "meta": "META"
 }
 

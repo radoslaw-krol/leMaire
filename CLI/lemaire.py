@@ -1,6 +1,6 @@
 import os
 import argparse
-from commands import chart_command, json, opening_command, day_command, history30_command, history6M_command, history1Y_command, period1M_command
+from commands import chart_command, json, opening_command, day_command, history30_command, history6M_command, history1Y_command, period1M_command, stock_command, stockcandle_command
 
 # Determine location of command_mapping.json file
 
@@ -23,6 +23,12 @@ subparsers = parser.add_subparsers(title='commands', dest='command')
 # Create the parser for the "chart" command
 chart_parser = subparsers.add_parser('chart', help='chart command help')
 chart_subparsers = chart_parser.add_subparsers(dest='choice', required=True)
+
+
+# Create the parser for the "stockcandle" command
+stockcandle_parser = subparsers.add_parser('stockcandle', help='stockcandle command help')
+stockcandle_parser.set_defaults(func=stockcandle_command)
+
 
 # Create the parser for the "history30" command
 history30_parser = chart_subparsers.add_parser('history30', help='history30 command help')
@@ -83,15 +89,23 @@ period1M_parser.add_argument('product', choices=list(command_mapping.keys()), he
 period1M_parser.set_defaults(func=period1M_command)
 
 
+# Create the parser for the "stock" command
+
+stock_parser = subparsers.add_parser('stock', help = 'stock command help')
+stock_parser.add_argument('product', choices=list(command_mapping.keys()), help='product name')
+stock_parser.set_defaults(func=stock_command)
+
+
 
 #Parse the command-line arguments
 
 args = parser.parse_args()
 
-
 # Call the appropriate function based on the command
 if hasattr(args, 'func'):
-    args.func(args)
+    if args.func == stockcandle_command:
+        args.func()  # Call the function without passing any arguments
+    else:
+        args.func(args)  # Call the function with the 'args' argument
 else:
     parser.print_help()
-
