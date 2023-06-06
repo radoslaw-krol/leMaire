@@ -1,6 +1,6 @@
 import os
 import argparse
-from commands import chart_command, json, opening_command, day_command, history30_command, history6M_command, history1Y_command
+from commands import chart_command, json, opening_command, day_command, history30_command, history6M_command, history1Y_command, period1M_command, stock_command, stockcandle_command
 
 # Determine location of command_mapping.json file
 
@@ -24,21 +24,33 @@ subparsers = parser.add_subparsers(title='commands', dest='command')
 chart_parser = subparsers.add_parser('chart', help='chart command help')
 chart_subparsers = chart_parser.add_subparsers(dest='choice', required=True)
 
+
+# Create the parser for the "stockcandle" command
+stockcandle_parser = subparsers.add_parser('stockcandle', help='stockcandle command help')
+stockcandle_parser.set_defaults(func=stockcandle_command)
+
+
 # Create the parser for the "history30" command
 history30_parser = chart_subparsers.add_parser('history30', help='history30 command help')
+history30_parser.add_argument('value', choices=['Open', 'Volume', 'High', 'Low', 'Close'], help='value to display')
 history30_parser.set_defaults(func=chart_command)
 
 
 # Create the parser for the "history6M" command
 history6M_parser = chart_subparsers.add_parser('history6M', help='history6M command help')
+history6M_parser.add_argument('value', choices=['Open', 'Volume', 'High', 'Low', 'Close'], help='value to display')
 history6M_parser.set_defaults(func=chart_command)
 
 
 # Create the parser for the "history1Y" command
 history1Y_parser = chart_subparsers.add_parser('history1Y', help='history1Y command help')
+history1Y_parser.add_argument('value', choices=['Open', 'Volume', 'High', 'Low', 'Close'], help='value to display')
 history1Y_parser.set_defaults(func=chart_command)
 
-
+# Create the parser for the "chart period1M" command
+period1M_parser = chart_subparsers.add_parser('period1M', help = 'period1M command help')
+period1M_parser.add_argument('value', choices=['Open', 'Volume', 'High', 'Low', 'Close'], help='value to display')
+period1M_parser.set_defaults(func=chart_command)
 
 
 # Create the parser for the "opening" command
@@ -63,7 +75,6 @@ history30_parser.set_defaults(func=history30_command)
 history6M_parser = subparsers.add_parser('history6M', help='history6M command help')
 history6M_parser.add_argument('product', choices=list(command_mapping.keys()), help='product name')
 history6M_parser.set_defaults(func=history6M_command)
-# Parse the command-line arguments
 
 # Create the parser for the "history1Y" command
 
@@ -71,14 +82,30 @@ history1Y_parser = subparsers.add_parser('history1Y', help='history1Y command he
 history1Y_parser.add_argument('product', choices=list(command_mapping.keys()), help='product name')
 history1Y_parser.set_defaults(func=history1Y_command)
 
+# Create the parser for the "period1M" command
 
+period1M_parser = subparsers.add_parser('period1M', help = 'period1M command help')
+period1M_parser.add_argument('product', choices=list(command_mapping.keys()), help='product name')
+period1M_parser.set_defaults(func=period1M_command)
+
+
+# Create the parser for the "stock" command
+
+stock_parser = subparsers.add_parser('stock', help = 'stock command help')
+stock_parser.add_argument('product', choices=list(command_mapping.keys()), help='product name')
+stock_parser.set_defaults(func=stock_command)
+
+
+
+#Parse the command-line arguments
 
 args = parser.parse_args()
 
-
 # Call the appropriate function based on the command
 if hasattr(args, 'func'):
-    args.func(args)
+    if args.func == stockcandle_command:
+        args.func()  # Call the function without passing any arguments
+    else:
+        args.func(args)  # Call the function with the 'args' argument
 else:
     parser.print_help()
-

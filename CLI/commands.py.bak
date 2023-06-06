@@ -6,12 +6,6 @@ import pandas as pd
 from datetime import date, timedelta
 from dateutil import parser
 
-
-
-#matplot
-
-import mplfinance as mpf
-
 # Define base directory to support files like history.json being saved in the same directory, regardless of where from the system file was executed
 base_dir = os.path.dirname(os.path.abspath(__file__))
 
@@ -55,20 +49,26 @@ def chart_command(args):
 
     plt.show()
 
+
+
 def stockcandle_command():
 
-    file = os.path.join(base_dir, "AAPL.csv")
+    plt.date_form('d/m/Y')
+
+    start = plt.string_to_datetime('11/04/2022')
+    end = plt.today_datetime()
+    data = yf.download('goog', start, end)
+
+    dates = plt.datetimes_to_string(data.index)
+
+    plt.candlestick(dates, data)
+
+    plt.title("Google Stock Price CandleSticks")
+    plt.xlabel("Date")
+    plt.ylabel("Stock Price $")
+    plt.show()
 
 
-    data = pd.read_csv(file)
-    
-    data.Date = pd.to_datetime(data.Date)
-
-    data = data.set_index('Date')
-   
-
-
-    mpf.plot(data,type='candle',mav=(20),volume=True,tight_layout=True,figratio=(20,12))
 
 def opening_command(args):
     product = args.product
@@ -197,26 +197,18 @@ def stock_command(args):
     product = args.product
     ticker = get_ticker_by_product(product)
     
-    stock_data = yf.download(ticker, start=date.today() - timedelta(days=30), end=date.today())
+    stock_data = yf.download(ticker, start=date.today() - timedelta(days=365), end=date.today())
 
     file_path = os.path.join(base_dir, "stock.json")
    
-    # Convert index to datetime objects
-    stock_data.index = pd.to_datetime(stock_data.index, unit='ms')
-
-
-
-    # Convert timestamps to human-readable dates
-    stock_data['Date'] = stock_data.index.strftime('%d/%m/%Y')
+    json_data = stock_data.to_json(orient='records')
     
-    # Convert the stock_data DataFrame to a dictionary with string keys
-    stock_dict = stock_data.rename(index=str).to_dict(orient='index')
-
-    # Write the JSON data to a file
     with open(file_path, "w") as json_file:
-        json.dump(stock_dict, json_file)
+        json_file.write(json_data)
 
     print(f"Data saved in: {os.path.abspath(file_path)}")
+
+
 def get_ticker_by_product(product):
 
     json_loc = os.path.dirname(os.path.abspath(__file__))
