@@ -10,7 +10,6 @@ json_loc = os.path.dirname(os.path.abspath(__file__))
 
 command_mapping_loc = os.path.join(json_loc, 'command_mapping.json')
 
-
 # Import JSON
 
 with open(command_mapping_loc) as f:
