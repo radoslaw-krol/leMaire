@@ -1,3 +1,9 @@
+Please note that this software uses:
+
+/ranaroussi/yfinance
+/piccolomo/plotext
+/matplotlib/mplfinance
+
 leMaire Program Documentation
 
 leMaire is a command-line program developed for analyzing and visualizing stock market data. It utilizes the Python programming language and various libraries to provide insights into stock market trends.
@@ -14,7 +20,7 @@ By running the leMaire program with appropriate commands, such as lemaire stockc
 
     chart: This command is used to plot historical data for a specific value (e.g., open price, volume, high, low, close) over a specified time period. It reads data from a JSON file (history.json, history6M.json, history1Y.json, or periodical.json) and uses the plotext library to create the chart.
 
-    stockcandle: This command plots candlestick charts for a specific stock using data from a CSV file (AAPL.csv). It uses the mplfinance library to generate the candlestick chart.
+    stockcandle: This command plots candlestick charts for a specific stock using data from a CSV file (*.csv). It uses the mplfinance library to generate the candlestick chart.
 
     shortcandle: This command plots candlestick charts for a specific product using data from Yahoo Finance. It uses the yfinance library to download the data and the plotext library to create the chart.
 
