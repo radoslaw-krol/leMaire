@@ -8,6 +8,17 @@ leMaire Program Documentation
 
 leMaire is a command-line program developed for analyzing and visualizing stock market data. It utilizes the Python programming language and various libraries to provide insights into stock market trends.
 
+
+How to use:
+
+Echo lemaire.py to your shell configuration file. In eg. echo "alias lemaire='python /path/to/lemaire.py'" >> ~/.zshrc
+
+Call program by typing lemaire {command name} {additional arguments if applicable}
+
+For help on available commands and arguments lemaire -h, lemaire {command name} -h
+
+To add more products to the list, edit command_mapping.json, for product/stocks ticker name, visit https://finance.yahoo.com/ 
+
 The program uses the following libraries:
 
     argparse: This library is used for parsing command-line arguments and generating the program's command-line interface.
