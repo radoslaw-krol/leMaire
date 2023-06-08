@@ -1,7 +1,7 @@
 import os
 import argparse
 from commands import chart_command, json, opening_command, day_command, history30_command, history6M_command, history1Y_command, period1M_command, stock_command, stockcandle_command
-
+from commands import shortcandle_command
 # Determine location of command_mapping.json file
 
 json_loc = os.path.dirname(os.path.abspath(__file__))
@@ -28,6 +28,13 @@ chart_subparsers = chart_parser.add_subparsers(dest='choice', required=True)
 # Create the parser for the "stockcandle" command
 stockcandle_parser = subparsers.add_parser('stockcandle', help='stockcandle command help')
 stockcandle_parser.set_defaults(func=stockcandle_command)
+
+# Create the parser for the "shortcandle" command
+
+shortcandle_parser = subparsers.add_parser('shortcandle', help='shortcandle command help')
+shortcandle_parser.add_argument('product', choices=list(command_mapping.keys()), help = 'product name')
+shortcandle_parser.set_defaults(func=shortcandle_command)
+
 
 
 # Create the parser for the "history30" command

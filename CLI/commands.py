@@ -1,5 +1,6 @@
 import os
 import json
+from numpy import product
 import yfinance as yf
 import plotext as plt
 import pandas as pd
@@ -69,6 +70,25 @@ def stockcandle_command():
 
 
     mpf.plot(data,type='candle',mav=(20),volume=True,tight_layout=True,figratio=(20,12))
+
+
+def shortcandle_command(args):
+            
+    product = args.product
+    ticker = get_ticker_by_product(product)
+    data = yf.download(ticker, period='30d')
+
+    plt.date_form('d/m/Y')
+
+    dates = plt.datetimes_to_string(data.index)
+
+    plt.candlestick(dates, data)
+
+    plt.title(f"{product} Stock Price Candlesticks")
+    plt.xlabel("Date")
+    plt.ylabel("Stock Price $")
+    plt.show()
+
 
 def opening_command(args):
     product = args.product
