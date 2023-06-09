@@ -6,7 +6,12 @@ Please note that this software uses:
 
 leMaire Program Documentation
 
-leMaire is a command-line program developed for analyzing and visualizing stock market data. It utilizes the Python programming language and various libraries to provide insights into stock market trends.
+leMaire is a command-line program developed for analyzing and visualizing stock market data. It utilizes the Python programming language and libraries such as 
+/ranaroussi/yfinance
+/piccolomo/plotext
+/matplotlib/mplfinance
+
+to provide insights into stock market trends.
 
 
 How to use:
