@@ -19,6 +19,9 @@ For help on available commands and arguments lemaire -h, lemaire {command name} 
 
 To add more products to the list, edit command_mapping.json, for product/stocks ticker name, visit https://finance.yahoo.com/ 
 
+To visualize dataset using matplot candlestick chart, donwload data in a form of CSV file from https://finance.yahoo.com/ and copy them to CSV subfolder inside main folder. 
+
+
 The program uses the following libraries:
 
     argparse: This library is used for parsing command-line arguments and generating the program's command-line interface.

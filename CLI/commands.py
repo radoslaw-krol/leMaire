@@ -13,22 +13,24 @@ from dateutil import parser
 
 import mplfinance as mpf
 
-# Define base directory to support files like history.json being saved in the same directory, regardless of where from the system file was executed
+# Define base directory to support files like history.json being saved in the same directory, regardless of where from the system program was executed
 base_dir = os.path.dirname(os.path.abspath(__file__))
+json_dir = os.path.join(base_dir, 'JSON')
+csv_dir  = os.path.join(base_dir, 'CSV')
 
 
 def chart_command(args):
     # Functionality for the "chart" command
     print("Executing chart command")
-    
+
     if args.choice == 'history30':
-        json_file = 'history.json'
+        json_file =os.path.join(json_dir, 'history.json')
     elif args.choice == 'history6M':
-        json_file = 'history6M.json'
+        json_file =os.path.join(json_dir, 'history6M.json')
     elif args.choice == 'history1Y':
-        json_file = 'history1Y.json'
+        json_file =os.path.join(json_dir, 'history1Y.json')
     elif args.choice == 'period1M':
-        json_file = 'periodical.json'
+        json_file =os.path.join(json_dir, 'periodical.json')
     else:
         print("Invalid choice")
         return
@@ -58,7 +60,7 @@ def chart_command(args):
 
 def stockcandle_command():
 
-    file = os.path.join(base_dir, "AAPL.csv")
+    file = os.path.join(csv_dir, "AAPL.csv")
 
 
     data = pd.read_csv(file)
@@ -137,7 +139,7 @@ def history30_command(args):
             for key, value in historical_data_dict.items()
             }
 
-    file_path = os.path.join(base_dir, "history.json")
+    file_path = os.path.join(json_dir, "history.json")
 
    
     with open(file_path, "w") as json_file:
@@ -159,7 +161,7 @@ def history6M_command(args):
             for key, value in historical_data_dict.items()
             }
 
-    file_path = os.path.join(base_dir, "history6M.json")
+    file_path = os.path.join(json_dir, "history6M.json")
    
     with open(file_path, "w") as json_file:
         json.dump(historical_data_dict, json_file)
@@ -180,7 +182,7 @@ def history1Y_command(args):
             for key, value in historical_data_dict.items()
             }
 
-    file_path = os.path.join(base_dir, "history1Y.json")
+    file_path = os.path.join(json_dir, "history1Y.json")
    
     with open(file_path, "w") as json_file:
         json.dump(historical_data_dict, json_file)
@@ -205,7 +207,7 @@ def period1M_command(args):
 
     }
 
-    file_path = os.path.join(base_dir, "periodical.json")
+    file_path = os.path.join(json_dir, "periodical.json")
 
     with open(file_path, "w") as json_file:
         json.dump(periodical_data_dict, json_file)
@@ -219,7 +221,7 @@ def stock_command(args):
     
     stock_data = yf.download(ticker, start=date.today() - timedelta(days=30), end=date.today())
 
-    file_path = os.path.join(base_dir, "stock.json")
+    file_path = os.path.join(json_dir, "stock.json")
    
     # Convert index to datetime objects
     stock_data.index = pd.to_datetime(stock_data.index, unit='ms')
